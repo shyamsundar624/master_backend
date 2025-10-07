@@ -8,13 +8,14 @@ import com.location.master.shyam.entity.EseSeq;
 
 import jakarta.transaction.Transactional;
 
-public interface SequenceDao extends JpaRepository<EseSeq,Long>{
+public interface SequenceDao extends JpaRepository<EseSeq, Long> {
 
-	@Query("select e.seqVal from EseSeq e where e.seqKey=:seqKey")
-	public Long getEseSequence(String seqKey);
-	
+	@Query("select e.seqVal from EseSeq e where e.seqKey = :seqKey")
+	Long getEseSequence(String seqKey);
+
 	@Transactional
 	@Modifying
 	@Query("Update EseSeq Set seqVal=:seqVal where seqKey=:seqKey")
-	public void updateSeq(long seqVal,String seqKey);
+	public void updateSeq(long seqVal, String seqKey);
+
 }

@@ -7,6 +7,8 @@ import com.location.master.shyam.constant.AppConstant;
 import com.location.master.shyam.repository.SequenceDao;
 import com.location.master.shyam.service.IUniqueIDGenerator;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UniqueIDGenerator implements IUniqueIDGenerator {
 
@@ -67,5 +69,13 @@ public class UniqueIDGenerator implements IUniqueIDGenerator {
 		return AppConstant.VILLAGE_PREFIX_CHAR+remaining+sequence;
 	
 	}
+	
+	  @Override
+	    public String getCatalogueIdSeq() {
+	        Long sequence = sequenceDao.getEseSequence(AppConstant.CATALOGUE_ID_SEQ);
+	        sequenceDao.updateSeq(sequence + 1, AppConstant.CATALOGUE_ID_SEQ);
+	        String remainingChar = getPrefix(sequence.toString().length(), AppConstant.CATALOGUE_PREFIX_LENGTH);
+	        return AppConstant.CATALOGUE_PREFIX_CHAR + remainingChar + sequence;
+	    }
 
 }
